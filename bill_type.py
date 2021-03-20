@@ -16,6 +16,6 @@ class BillType:
         return False
 
     @staticmethod
-    def print_cities():
+    def print_bill():
         for key, value in BillType.bill_types.items():
             print(key, value)
