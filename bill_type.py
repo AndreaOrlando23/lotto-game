@@ -8,14 +8,23 @@ class BillType:
     }
 
     def __init__(self, bill=0):
-        self.bill = bill
+        self.__bill = bill
 
-    def city_check(self):
-        if self.bill in BillType.bill_types.keys():
+    def bill_check(self):
+        if self.__bill in BillType.bill_types.keys():
             return True
         return False
+
+    def get_bill(self, bill):
+        self.__bill = bill
+        if self.bill_check():
+            return BillType.bill_types[bill]
 
     @staticmethod
     def print_bill():
         for key, value in BillType.bill_types.items():
             print(key, value)
+
+
+bill = BillType()
+print(bill.get_bill(1))

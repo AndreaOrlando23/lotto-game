@@ -14,15 +14,23 @@ class City:
     }
 
     def __init__(self, city=0):
-        self.city = city
+        self.__city = city
 
     def city_check(self):
-        if self.city in City.cities.keys():
+        if self.__city in City.cities.keys():
             return True
         return False
+
+    def get_city(self, city):
+        self.__city = city
+        if self.city_check():
+            return City.cities[city]
 
     @staticmethod
     def print_cities():
         for key, value in City.cities.items():
             print(key, value)
 
+
+city = City()
+print(city.get_city(3))
