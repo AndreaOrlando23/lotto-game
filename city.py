@@ -21,6 +21,9 @@ class City:
             return True
         return False
 
+    def set_city(self, city):
+        self.__city = city
+
     def get_city(self, city):
         self.__city = city
         if self.city_check():

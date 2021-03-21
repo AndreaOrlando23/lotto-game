@@ -15,8 +15,11 @@ class BillType:
             return True
         return False
 
-    def get_bill(self, bill):
+    def set_bill(self, bill):
         self.__bill = bill
+
+    def get_bill(self, bill):
+        self.set_bill(bill)
         if self.bill_check():
             return BillType.bill_types[bill]
 
@@ -28,4 +31,4 @@ class BillType:
 
 # Test
 bill = BillType()
-print(bill.get_bill(1))
+print(bill.get_bill(3))
