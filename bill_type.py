@@ -26,5 +26,6 @@ class BillType:
             print(key, value)
 
 
+# Test
 bill = BillType()
 print(bill.get_bill(1))
