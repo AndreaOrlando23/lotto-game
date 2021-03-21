@@ -38,3 +38,4 @@ class City:
 # Test
 city = City()
 print(city.get_city(3))
+city.print_cities()

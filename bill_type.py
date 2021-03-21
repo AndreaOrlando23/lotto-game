@@ -32,3 +32,4 @@ class BillType:
 # Test
 bill = BillType()
 print(bill.get_bill(3))
+
