@@ -14,7 +14,7 @@ class Lotto:
 
         city = int(input("> Enter the corresponding number to the city: "))
 
-        if City.city_check(city):
+        if City.check_city(city):
             c = City(city)
             self.city = c.get_city(city)
 

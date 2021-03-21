@@ -13,14 +13,14 @@ class BetType:
     def set_bet(self, bet):
         self.__bet = bet
 
-    def bet_check(self, bet):
+    def check_bet(self, bet):
         self.set_bet(bet)
         if bet in BetType.bet_types.keys():
             return True
         return False
 
     def get_bet(self, bet):
-        if self.bet_check(bet):
+        if self.check_bet(bet):
             return BetType.bet_types[bet]
 
     @staticmethod

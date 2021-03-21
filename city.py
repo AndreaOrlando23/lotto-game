@@ -19,14 +19,14 @@ class City:
     def set_city(self, city):
         self.__city = city
 
-    def city_check(self, city):
+    def check_city(self, city):
         self.set_city(city)
         if city in City.cities.keys():
             return True
         return False
 
     def get_city(self, city):
-        if self.city_check(city):
+        if self.check_city(city):
             return City.cities[city]
 
     @staticmethod
