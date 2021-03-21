@@ -16,17 +16,17 @@ class City:
     def __init__(self, city=0):
         self.__city = city
 
-    def city_check(self):
-        if self.__city in City.cities.keys():
-            return True
-        return False
-
     def set_city(self, city):
         self.__city = city
 
+    def city_check(self, city):
+        self.set_city(city)
+        if city in City.cities.keys():
+            return True
+        return False
+
     def get_city(self, city):
-        self.__city = city
-        if self.city_check():
+        if self.city_check(city):
             return City.cities[city]
 
     @staticmethod
@@ -36,6 +36,9 @@ class City:
 
 
 # Test
-city = City()
-print(city.get_city(3))
-# city.print_cities()
+if __name__ == '__main__':
+    city = City()
+    test = int(input("Number: "))
+    print(city.get_city(test))
+    # city.print_cities()
+
