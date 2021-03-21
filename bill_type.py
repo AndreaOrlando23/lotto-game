@@ -26,10 +26,11 @@ class BillType:
     @staticmethod
     def print_bill():
         for key, value in BillType.bill_types.items():
-            print(key, value)
+            print(key, "\t-->\t", value)
 
 
 # Test
 bill = BillType()
 print(bill.get_bill(3))
+bill.print_bill()
 

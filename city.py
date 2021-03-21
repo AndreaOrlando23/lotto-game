@@ -32,10 +32,10 @@ class City:
     @staticmethod
     def print_cities():
         for key, value in City.cities.items():
-            print(key, value)
+            print(key, "\t-->\t", value)
 
 
 # Test
 city = City()
 print(city.get_city(3))
-city.print_cities()
+# city.print_cities()
