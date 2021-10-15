@@ -14,10 +14,10 @@ class City:
     }
 
     def __init__(self, city=0):
-        self.__city = city
+        self.city = city
 
     def set_city(self, city):
-        self.__city = city
+        self.city = city
 
     def check_city(self, city):
         self.set_city(city)
@@ -32,12 +32,15 @@ class City:
     @staticmethod
     def print_cities():
         for key, value in City.cities.items():
-            print(key, "\t-->\t", value)
+            print(f"{key} - {value}")
 
 
 # Test
 if __name__ == '__main__':
     city = City()
+    print("Select the number of the city you want to game with:")
+    city.print_cities()
+        
     test = int(input("Number: "))
     print(city.get_city(test))
     # city.print_cities()

@@ -8,10 +8,10 @@ class BetType:
     }
 
     def __init__(self, bet=0):
-        self.__bet = bet
+        self.bet = bet
 
     def set_bet(self, bet):
-        self.__bet = bet
+        self.bet = bet
 
     def check_bet(self, bet):
         self.set_bet(bet)
