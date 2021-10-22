@@ -16,11 +16,7 @@ class City:
     def __init__(self, city=0):
         self.city = city
 
-    def set_city(self, city):
-        self.city = city
-
     def check_city_number(self, number):
-        # self.set_city(city)
         if number in City.cities.keys():
             return True
         return False
@@ -43,5 +39,5 @@ if __name__ == '__main__':
         
     test = int(input("Number: "))
     print(city.get_city(test))
-    # city.print_cities()
+    print(city.check_city_number(test))
 
