@@ -10,11 +10,7 @@ class BetType:
     def __init__(self, bet=0):
         self.bet = bet
 
-    def set_bet(self, bet):
-        self.bet = bet
-
     def check_bet(self, bet):
-        self.set_bet(bet)
         if bet in BetType.bet_types.keys():
             return True
         return False
@@ -26,12 +22,17 @@ class BetType:
     @staticmethod
     def print_bet():
         for key, value in BetType.bet_types.items():
-            print(key, "\t-->\t", value)
+            print(f"{key} - {value}")
 
 
 # Test
 if __name__ == '__main__':
     bet = BetType()
-    print(bet.get_bet(3))
-    # bet.print_bet()
+    print("Select the number of the bet you want to game with:")
+    bet.print_bet()
+
+    test = int(input("Number: "))
+
+    print(bet.get_bet(test))
+    print(bet.check_bet(test))
 
