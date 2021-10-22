@@ -4,7 +4,8 @@ from bet_type import BetType
 
 class Ticket:
 
-    def __init__(self, num_tickets, city, bet, num_extracted=[]):
+    def __init__(self, id_ticket, num_tickets, city, bet, num_extracted=[]):
+        self.id_ticket = id_ticket
         self.num_tickets = num_tickets
         self.city = city
         self.bet = bet
@@ -12,7 +13,7 @@ class Ticket:
 
     def print_ticket(self):
         table_line = '+'+'-'*48+'+'
-        header = '|{:^48}|'.format('TICKET ' + str(self.num_tickets))
+        header = '|{:^48}|'.format('TICKET ' + str(self.id_ticket))
         city = '|{:^48}|'.format('City: ' + self.city)
         bet = '|{:^48}|'.format('Bet: ' + self.bet)
         numbers = '|{:^48}|'.format(' '.join([str(elem) for elem in self.num_extracted]))
