@@ -14,7 +14,7 @@ class Ticket:
     def print_ticket(self):
         table_line = '+'+'-'*48+'+'
         header = '|{:^48}|'.format('TICKET ' + str(self.id_ticket))
-        city = '|{:^48}|'.format('City: ' + self.city)
+        city = '|{:^48}|'.format('City: ', self.city)
         bet = '|{:^48}|'.format('Bet: ' + self.bet)
         numbers = '|{:^48}|'.format(' '.join([str(elem) for elem in self.num_extracted]))
 

@@ -25,10 +25,19 @@ class City:
         if self.check_city_number(city):
             return City.cities[city]
 
+    """
     @staticmethod
     def print_cities():
+        print("\nID\t CITY\n"+"="*20)
         for key, value in City.cities.items():
-            print(f"{key} - {value}")
+            print(f"|{key}\t {value}")
+    """
+    @staticmethod
+    def print_cities():
+        print("\nID\tCITY\n"+"="*17)
+        for key, value in City.cities.items():
+            print(f"|{key}\t{value}")
+    
 
 
 # Test
@@ -37,7 +46,7 @@ if __name__ == '__main__':
     print("Select the number of the city you want to game with:")
     city.print_cities()
         
-    test = int(input("Number: "))
+    test = int(input("\nNumber: "))
     print(city.get_city(test))
     print(city.check_city_number(test))
 

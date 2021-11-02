@@ -21,8 +21,9 @@ class BetType:
 
     @staticmethod
     def print_bet():
+        print("\nID\tBET\n"+"="*17)
         for key, value in BetType.bet_types.items():
-            print(f"{key} - {value}")
+            print(f"|{key}\t{value}")
 
 
 # Test
@@ -31,7 +32,7 @@ if __name__ == '__main__':
     print("Select the number of the bet you want to game with:")
     bet.print_bet()
 
-    test = int(input("Number: "))
+    test = int(input("\nNumber: "))
 
     print(bet.get_bet(test))
     print(bet.check_bet(test))

@@ -12,20 +12,41 @@ class Lotto:
 
 
     def tickets_generator(self):
-        decorator = '-'*50
+        decorator = '='*50
 
         for betting in range(self.num_tickets):
             print(decorator)
-            print('{:^50}'.format(f'TICKET {betting+1}'))
+            print('{:^50}'.format(f'### TICKET {betting+1} ###'))
             print(decorator)
 
-            pick_city = int(input("Enter city: "))
-            c = City()
-            city = c.get_city(pick_city)
+            City.print_cities()
+            city_id = input(f"\n>>> TICKET {betting+1} - Enter City ID: ")
+            city = self.ask_city(city_id)
+            while city:
+                city = self.ask_city(city_id)
 
-            pick_bet = int(input("Enter Bet Type: "))
+            """
+            c = City()
+            c.print_cities()
+            pick_city = int(input(f"\n>>> TICKET {betting+1} - Enter City ID: "))
+            if c.check_city_number(pick_city):
+                city = c.get_city(pick_city)
+            else:
+                print(f"\nERROR: {pick_city} is not a valid City ID. Please try again.")
+                pick_city = int(input(f"\n>>> TICKET {betting+1} - Enter City ID: "))
+                city = c.get_city(pick_city)
+            """
+
             b = BetType()
-            bet = b.get_bet(pick_bet)
+            b.print_bet()
+            pick_bet = int(input(f"\n>>> TICKET {betting+1} - Enter Bet Type ID: "))
+            if b.check_bet(pick_bet):
+                bet = b.get_bet(pick_bet)
+            else:
+                print(f"\nERROR: {pick_bet} is not a valid Bet Type ID. Please try again.")
+                pick_bet = int(input(f"\n>>> TICKET {betting+1} - Enter Bet Type ID: "))
+                bet = b.get_bet(pick_bet)
+
 
             extraction = self.numbers_generator(5)
 
@@ -34,8 +55,19 @@ class Lotto:
         
         for ticket in self.tickets:
             print(ticket.print_ticket())
+
         
-        
+    def ask_city(self, n_ticket):
+        city_id = input(f"\n>>> TICKET {int(n_ticket)} - Enter City ID: ")
+
+        id = int(city_id)
+        if City.check_city_number(id):
+            city = City.get_city(id)
+            print(city)
+            return city
+        print(f"\nERROR: {city_id} is not a valid City ID. Please try again.")
+        return False
+
 
     def numbers_generator(self, numbers):
         extraction = random.sample(range(1, 91), int(numbers))
