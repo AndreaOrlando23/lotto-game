@@ -104,7 +104,7 @@ class Lotto:
 
 if __name__ == '__main__':
     lotto = Lotto(3)
-
+    print(lotto.numbers_generator)
     lotto.tickets_generator()
 
     

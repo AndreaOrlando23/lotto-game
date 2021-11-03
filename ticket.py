@@ -46,7 +46,7 @@ if __name__ == '__main__':
     test_bet = int(input("Number: "))
     get_bet = bet.get_bet(test_bet)
 
-    ticket = Ticket(1, get_city, get_bet, [1, 2, 3, 4, 5])
+    ticket = Ticket(1, 1, get_city, get_bet, [1, 2, 3, 4, 5])
     print(ticket.print_ticket())
 
 
