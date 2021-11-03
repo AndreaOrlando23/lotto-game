@@ -1,6 +1,9 @@
 from city import City
 from bet import Bet
 from ticket import Ticket
+
+import time
+import sys
 import random
 
 
@@ -20,148 +23,115 @@ class Lotto:
             print(decorator)
 
             
-            city = self.get_city_id(betting+1)
+            city = self.get_city_name(betting+1)
             while city == False:
-                city = self.get_city_id(betting+1)
+                city = self.get_city_name(betting+1)
+
+            bet_type = self.get_bet_type(betting+1)
+            while bet_type == False:
+                bet_type = self.get_bet_type(betting+1)
             
+            bet_id = self.get_bet_id(bet_type)  # return bet id
 
-            bet = self.get_bet_id(betting+1)
-            while bet == False:
-                bet = self.get_bet_id(betting+1)
-
-            """
-            c = City()
-            c.print_cities()
-            pick_city = int(input(f"\n>>> TICKET {betting+1} - Enter City ID: "))
-            if c.check_city_number(pick_city):
-                city = c.get_city(pick_city)
-            else:
-                print(f"\nERROR: {pick_city} is not a valid City ID. Please try again.")
-                pick_city = int(input(f"\n>>> TICKET {betting+1} - Enter City ID: "))
-                city = c.get_city(pick_city)
+            nums = self.get_nums(betting+1, bet_type, bet_id)
+            while nums == False:
+                nums = self.get_nums(betting+1, bet_type, bet_id)
             
+            extraction = self.numbers_generator(nums)
 
-            b = Bet()
-            b.print_bet()
-            pick_bet = int(input(f"\n>>> TICKET {betting+1} - Enter Bet Type ID: "))
-            if b.check_bet(pick_bet):
-                bet = b.get_bet(pick_bet)
-            else:
-                print(f"\nERROR: {pick_bet} is not a valid Bet Type ID. Please try again.")
-                pick_bet = int(input(f"\n>>> TICKET {betting+1} - Enter Bet Type ID: "))
-                bet = b.get_bet(pick_bet)
-            """
-
-            extraction = self.numbers_generator(5)
-
-            ticket = Ticket(betting+1, self.num_tickets, city, bet, extraction)
+            ticket = Ticket(betting+1, self.num_tickets, city, bet_type, extraction)
             self.tickets.append(ticket)
+        
+        print("\nTickets Processing ...\n")
+        
+        self.loading_bar()
+    
+
+        print("\n" + decorator)
+        print('{:^50}'.format(f'### HERE YOUR {self.num_tickets} TICKETS ###'))
+        print(decorator)
         
         for ticket in self.tickets:
             print(ticket.print_ticket())
+        
+        print(decorator)
+        print('{:^50}'.format('GOOD LUCK ;)'))
+        print(decorator)
 
         
-    def get_city_id(self, n_ticket):
+    def get_city_name(self, n_ticket):
         c = City()
         c.print_cities()
-        city_id = input(f"\n>>> TICKET {n_ticket} - Enter City ID: ")
+        ask_city_id = input(f"\n>>> TICKET {n_ticket} - Enter City ID: ")
         try:
-            city_name = int(city_id)
-            if c.check_city_number(city_name):
-                city = c.get_city(city_name)
-                return city
-            print(f'\nERROR: "{city_id}" is not a valid City ID.\nPlease choose from the following table:')
+            id = int(ask_city_id)
+            if c.check_city_number(id):
+                city_name = c.get_city(id)
+                return city_name
+            print(f'\nERROR: "{ask_city_id}" is not a valid City ID.\nPlease choose from the following table:')
             return False
         except:
-            print(f'\nERROR: "{city_id}" is not a valid City ID.\nPlease choose from the following table:')
+            print(f'\nERROR: "{ask_city_id}" is not a valid City ID.\nPlease choose from the following table:')
             return False
     
 
-    def get_bet_id(self, n_ticket):
+    def get_bet_type(self, n_ticket):
         b = Bet()
         b.print_bet()
-        bet_id = input(f"\n>>> TICKET {n_ticket} - Enter City ID: ")
+        ask_bet_id = input(f"\n>>> TICKET {n_ticket} - Enter Bet Type ID: ")
         try:
-            bet_type = int(bet_id)
-            if b.check_bet(bet_type):
-                bet = b.get_bet(bet_type)
-                return bet
-            print(f'\nERROR: "{bet_id}" is not a valid Bet Type ID.\nPlease choose from the following table:')
+            id = int(ask_bet_id)
+            if b.check_bet(id):
+                bet_type = b.get_bet(id)
+                return bet_type
+            print(f'\nERROR: "{ask_bet_id}" is not a valid Bet Type ID.\nPlease choose from the following table:')
             return False
         except:
-            print(f'\nERROR: "{bet_id}" is not a valid Bet Type ID.\nPlease choose from the following table:')
+            print(f'\nERROR: "{ask_bet_id}" is not a valid Bet Type ID.\nPlease choose from the following table:')
+            return False
+    
+
+    def get_bet_id(self, value):
+        for id, val in Bet().bet_types.items():
+            if val == value:
+                return id
+    
+    
+    def get_nums(self, n_ticket, bet_type, bet_id):
+        ask_nums = input(f"\n>>> How many numbers you want bet for TICKET {n_ticket} [min 1 | max 10]: ")
+        try:
+            nums = int(ask_nums)
+            if 1 <= nums <= 10:
+                if nums >= bet_id:
+                    return nums
+                print(f'\nERROR: You have entered to few numbers ({nums}) for your type of bet ({bet_type}). Please try again.')
+                return False
+            print(f'\nERROR: "{ask_nums}" is not a valid Bet Type ID [min 1 | max 10]. Please try again.')
+            return False
+        except:
+            print(f'\nERROR: "{ask_nums}" is not a valid Bet Type ID [min 1 | max 10]. Please try again.')
             return False
 
 
     def numbers_generator(self, numbers):
         extraction = random.sample(range(1, 91), int(numbers))
         return extraction  # type list()
+    
+
+    def loading_bar(self):
+        for i in range(21):
+            sys.stdout.write('\r')
+            sys.stdout.write("[%-20s] %d%%" % ('='*i, 5*i))
+            sys.stdout.flush()
+            time.sleep(0.05)
+        print()
 
 
-
+    
 
 # Test
 
 if __name__ == '__main__':
-    lotto = Lotto(3)
-    print(lotto.numbers_generator)
-    lotto.tickets_generator()
-
+    lotto = Lotto(1)
     
-        
-
-
-
-
-
-
-
-
-
-
-
-"""
-class Lotto:
-    def __init__(self, city=0, bet=0, numbers=0):
-        self.city = city
-        self.bet = bet
-        self.numbers = numbers
-
-    def pick_city(self):
-        print("> Pick the 'ruota' (aka city) by the corresponding number:")
-        City.print_cities()
-
-        city = int(input("> Enter the corresponding number of the city: "))
-        c = City(city)
-        if c.get_city(city):
-            self.city = c.get_city(city)
-            return self.city
-        else:
-            return "Enter a number between 1 to 12"
-
-    def pick_bet(self):
-        print("> Pick the bet type by the corresponding number:")
-        BetType.print_bet()
-
-        bet = int(input("> Enter the corresponding number of the bet type: "))
-        b = BetType(bet)
-        if b.get_bet(bet):
-            self.bet = b.get_bet(bet)
-            return self.bet
-        else:
-            return "Enter a number between 1 to 5"
-
-        '''
-        if City.check_city(city):
-            c = City(city)
-            self.city = c.get_city(city)
-        
-        else:
-            print("Enter a number between 1 to 12")
-        '''
-
-
-lotto = Lotto()
-print(lotto.pick_city())
-print(lotto.pick_bet())
-"""
+    lotto.tickets_generator()
