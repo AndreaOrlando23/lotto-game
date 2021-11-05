@@ -23,13 +23,13 @@ class City:
     def __init__(self, city=0):
         self.city = city
 
-    def check_city_number(self, number):
-        if number in City.cities.keys():
+    def check_city(self, id):
+        if id in City.cities.keys():
             return True
         return False
 
     def get_city(self, city):
-        if self.check_city_number(city):
+        if self.check_city(city):
             return City.cities[city]
 
     @staticmethod

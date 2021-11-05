@@ -77,7 +77,7 @@ class Lotto:
         ask_city_id = input(f"\n>>> TICKET {n_ticket} - Enter City ID aka Ruota: ")
         try:
             id = int(ask_city_id)
-            if c.check_city_number(id):
+            if c.check_city(id):
                 city_name = c.get_city(id)
                 return city_name
             print(f'\nERROR: "{ask_city_id}" is not a valid City ID.\nPlease choose from the following table:')
