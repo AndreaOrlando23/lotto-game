@@ -4,6 +4,20 @@ from bet import Bet
 
 class Ticket:
 
+    """
+    Ticket class represents the ticket format build for
+    the Lotto Game program.
+
+    Expected Output:
+    +================================================+
+    |                  TICKET <n>                    |
+    |------------------------------------------------|
+    |                 City: <city_name>              |
+    |                 Bet: <bet_type>                |
+    |               <numbers_extracted>              |
+    +================================================+
+    """
+
     def __init__(self, id_ticket, num_tickets, city, bet, num_extracted=[]):
         self.id_ticket = id_ticket
         self.num_tickets = num_tickets

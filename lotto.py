@@ -1,13 +1,18 @@
+import time
+import sys
+import random
 from city import City
 from bet import Bet
 from ticket import Ticket
 
-import time
-import sys
-import random
-
 
 class Lotto:
+    """
+    Lotto class represents the business logic of the program.
+    The methods process all the inputs from the user and manage controls flow.
+    If the input pass all the controls, the program will print out the tickets 
+    with all the information needed.
+    """
 
     def __init__(self, num_tickets):
         self.num_tickets = num_tickets
@@ -58,11 +63,18 @@ class Lotto:
         print('{:^50}'.format('GOOD LUCK ;)'))
         print(decorator)
 
+
+    def quit_program(self, istruction):
+        if int(istruction) == 0:
+            print("\nQuitting program ...\n")
+            quit()
+        return False
+    
         
     def get_city_name(self, n_ticket):
         c = City()
         c.print_cities()
-        ask_city_id = input(f"\n>>> TICKET {n_ticket} - Enter City ID: ")
+        ask_city_id = input(f"\n>>> TICKET {n_ticket} - Enter City ID aka Ruota: ")
         try:
             id = int(ask_city_id)
             if c.check_city_number(id):
@@ -92,6 +104,11 @@ class Lotto:
     
 
     def get_bet_id(self, value):
+        """
+        This method is useful for managing and controls
+        the user input when the numbers choosen from the user
+        are lower then the bet type choose previously
+        """
         for id, val in Bet().bet_types.items():
             if val == value:
                 return id
@@ -127,11 +144,7 @@ class Lotto:
         print()
 
 
-    
-
 # Test
-
 if __name__ == '__main__':
     lotto = Lotto(1)
-    
     lotto.tickets_generator()

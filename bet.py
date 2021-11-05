@@ -1,4 +1,11 @@
 class Bet:
+    """
+    Bet class represents the way to check 
+    and retrieve the bet type and
+    the relative ID number. It allows the program
+    to print out the possible bet type choice for the user.
+    """
+
     bet_types = {
         1: "Ambata",
         2: "Ambo",

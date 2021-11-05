@@ -1,4 +1,11 @@
 class City:
+    """
+    City class represents the way to check 
+    and retrieve the city name (aka ruota) and
+    the relative ID number. It allows the program
+    to print out the possible city choice for the user.
+    """
+
     cities = {
         1: "Bari",
         2: "Cagliari",
@@ -25,13 +32,6 @@ class City:
         if self.check_city_number(city):
             return City.cities[city]
 
-    """
-    @staticmethod
-    def print_cities():
-        print("\nID\t CITY\n"+"="*20)
-        for key, value in City.cities.items():
-            print(f"|{key}\t {value}")
-    """
     @staticmethod
     def print_cities():
         print("\nID\tCITY\n"+"="*17)
