@@ -1,9 +1,9 @@
 import time
 import sys
 import random
-from city import City
-from bet import Bet
-from ticket import Ticket
+from lotto.city import City
+from lotto.bet import Bet
+from lotto.ticket import Ticket
 
 
 class Lotto:

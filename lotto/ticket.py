@@ -1,5 +1,5 @@
-from city import City
-from bet import Bet
+from lotto.city import City
+from lotto.bet import Bet
 
 
 class Ticket:
