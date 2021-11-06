@@ -1,5 +1,5 @@
 # Lotto Game
-#### [TomorrowDevs](https://github.com/AndreaOrlando23/programming-basics/tree/main/projects/m6/001-lotto-game) - Learning Path 1
+#### TomorrowDevs - [Learning Path 1](https://github.com/AndreaOrlando23/programming-basics/tree/main/projects/m6/001-lotto-game)
 
 ___
 ## Requirements
