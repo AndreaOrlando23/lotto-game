@@ -1,6 +1,7 @@
 import argparse
+from lotto.ticket import Ticket
 from lotto.lotto import Lotto
-from lotto.utils import LOTTO_GAME_RULES, DECORATOR
+from lotto.utils import LOTTO_GAME_RULES
 
 
 def main():
@@ -14,9 +15,7 @@ def main():
         print(LOTTO_GAME_RULES)
 
     if data['n']:
-        print(DECORATOR)
-        print('{:^50}'.format('### LOTTO GAME ###'))
-        print(DECORATOR)
+        Ticket.print_decorator('### LOTTO GAME ###')
 
         print(f"\nYou have choose to play with {data['n']} Tickets.\n")
         point_check = input("Press any key to start the game! (press 0 to quit) ")

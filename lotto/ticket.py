@@ -24,6 +24,13 @@ class Ticket:
         self.city = city
         self.bet = bet
         self.num_extracted = num_extracted
+    
+    @staticmethod
+    def print_decorator(text):
+       print('='*50)
+       print('{:^50}'.format(text))
+       print('='*50)
+
 
     def print_ticket(self):
         table_line = '+'+'='*48+'+'
@@ -33,7 +40,6 @@ class Ticket:
         bet = '|{:^48}|'.format('Bet: ' + self.bet)
         numbers = '|{:^48}|'.format(' '.join([str(elem) for elem in self.num_extracted]))
         
-
 
         return f"""
 {table_line}

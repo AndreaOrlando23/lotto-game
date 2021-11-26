@@ -20,13 +20,10 @@ class Lotto:
 
 
     def tickets_generator(self):
-        decorator = '='*50
 
         for betting in range(self.num_tickets):
-            print(decorator)
-            print('{:^50}'.format(f'### TICKET {betting+1} ###'))
-            print(decorator)
-
+           
+            Ticket.print_decorator(f'### TICKET {betting+1} ###')
             
             city = self.get_city_name(betting+1)
             while city == False:
@@ -50,18 +47,13 @@ class Lotto:
         print("\nTickets Processing ...\n")
         
         self.loading_bar()
-    
-
-        print("\n" + decorator)
-        print('{:^50}'.format(f'### HERE YOUR {self.num_tickets} TICKETS ###'))
-        print(decorator)
+        
+        Ticket.print_decorator(f'### HERE YOUR {self.num_tickets} TICKETS ###')
         
         for ticket in self.tickets:
             print(ticket.print_ticket())
         
-        print(decorator)
-        print('{:^50}'.format('GOOD LUCK ;)'))
-        print(decorator)
+        Ticket.print_decorator('GOOD LUCK ;)')
 
 
     def quit_program(self, istruction):
