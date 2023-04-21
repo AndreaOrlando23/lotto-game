@@ -1,12 +1,11 @@
 from lotto.city import City
-
-# TODO
+import random
 
 
 class Extraction:
 
-    def __init__(self):
-        pass
+    def __init__(self, num_extracted):
+        self.num_extracted = num_extracted
     
 
-    
+    # TODO
