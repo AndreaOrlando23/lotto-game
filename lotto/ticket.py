@@ -42,13 +42,13 @@ class Ticket:
         
 
         return f"""
-{table_line}
-{header}
-{table_midline}
-{city}
-{bet}
-{numbers}
-{table_line}
+        {table_line}
+        {header}
+        {table_midline}
+        {city}
+        {bet}
+        {numbers}
+        {table_line}
         """
 
 
