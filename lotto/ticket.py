@@ -32,6 +32,14 @@ class Ticket:
        print('='*50)
 
 
+    def get_tickets(self, id, city, bet, nums):
+        tickets = {id: {'city': city, 
+                        'bet': bet, 
+                        'nums': nums}
+                    }
+        return tickets
+
+
     def print_ticket(self):
         table_line = '+'+'='*48+'+'
         table_midline = '|'+'-'*48+'|'

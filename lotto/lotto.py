@@ -4,6 +4,7 @@ import random
 from lotto.city import City
 from lotto.bet import Bet
 from lotto.ticket import Ticket
+from lotto.extraction import Extraction
 
 
 class Lotto:
@@ -13,6 +14,7 @@ class Lotto:
     If the input pass all the controls, the program will print out the tickets 
     with all the information needed.
     """
+    
 
     def __init__(self, num_tickets):
         self.num_tickets = num_tickets
@@ -20,6 +22,8 @@ class Lotto:
 
 
     def tickets_generator(self):
+        cities = City.cities
+        tickets = {}
 
         for betting in range(self.num_tickets):
            
@@ -39,12 +43,15 @@ class Lotto:
             while nums == False:
                 nums = self.get_nums(betting+1, bet_type, bet_id)
             
-            extraction = self.numbers_generator(nums)
+            extraction_for_ticket = self.numbers_generator(nums)
+            
+            ticket = Ticket(betting+1, self.num_tickets, city, bet_type, extraction_for_ticket)
 
-            ticket = Ticket(betting+1, self.num_tickets, city, bet_type, extraction)
+            tickets.update(ticket.get_tickets(betting+1, city, bet_type, extraction_for_ticket))
+            
             self.tickets.append(ticket)
-        
-        print("\nTickets Processing ...\n")
+
+        print("\nProcessing Tickets...\n")
         
         self.loading_bar()
         
@@ -54,6 +61,18 @@ class Lotto:
             print(ticket.print_ticket())
         
         Ticket.print_decorator('GOOD LUCK ;)')
+
+        print("\nProcessing Extraction...\n")
+
+        self.loading_bar()
+
+        extraction = Extraction()
+        lotto_extraction = extraction.get_extractions(cities)  # Return dict() --> {city: [nums]}
+        extraction.output()
+
+        print(lotto_extraction)
+        print()
+        print(tickets)
 
 
     def quit_program(self, istruction):
@@ -132,7 +151,7 @@ class Lotto:
             sys.stdout.write('\r')
             sys.stdout.write("[%-20s] %d%%" % ('='*i, 5*i))
             sys.stdout.flush()
-            time.sleep(0.05)
+            time.sleep(0.08)
         print()
 
 

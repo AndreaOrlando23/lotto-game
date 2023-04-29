@@ -1,4 +1,4 @@
-from city import City
+from lotto.city import City
 import random
 
 
