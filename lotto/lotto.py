@@ -19,7 +19,7 @@ class Lotto:
     def __init__(self, num_tickets):
         self.num_tickets = num_tickets
         self.tickets = []
-
+    
 
     def tickets_generator(self):
         cities = City.cities
@@ -44,35 +44,58 @@ class Lotto:
                 nums = self.get_nums(betting+1, bet_type, bet_id)
             
             extraction_for_ticket = self.numbers_generator(nums)
-            
             ticket = Ticket(betting+1, self.num_tickets, city, bet_type, extraction_for_ticket)
-
             tickets.update(ticket.get_tickets(betting+1, city, bet_type, extraction_for_ticket))
-            
             self.tickets.append(ticket)
 
-        print("\nProcessing Tickets...\n")
-        
+
+        print("\nProcessing Tickets...\n")        
         self.loading_bar()
-        
         Ticket.print_decorator(f'### HERE YOUR {self.num_tickets} TICKETS ###')
         
         for ticket in self.tickets:
             print(ticket.print_ticket())
         
         Ticket.print_decorator('GOOD LUCK ;)')
-
         print("\nProcessing Extraction...\n")
-
-        self.loading_bar()
+        self.loading_bar(0.15)
 
         extraction = Extraction()
-        lotto_extraction = extraction.get_extractions(cities)  # Return dict() --> {city: [nums]}
+        lotto_extraction = extraction.get_extractions(cities)  # Return dict() with all cities --> {city: [nums]} --> extraction
         extraction.output()
 
         print(lotto_extraction)
         print()
-        print(tickets)
+        print(tickets)  # tickets return dict() --> {id_ticket: {city: city_name, bet: type_bet, nums: [nums_of_bet]}} --> bet
+
+
+        winner, win_tickets = self.is_win_bet(tickets, lotto_extraction)
+
+    def is_win_bet(self, bet, extraction):
+        win_dict = {}
+        win_nums = []
+        excluded_wheel = ['Tutte']
+        
+        for b in bet:
+            if bet[b]['city'] == 'Tutte':
+                extraction = {k: extraction[k] for k in set(list(extraction.keys())) - set(excluded_wheel)}  # remove 'Tutte' wheel from extraction dict()
+                for n in bet[b]['nums']:
+                    for c in extraction['city']:
+                        if n in extraction[c]:
+                            win_nums.append(n)
+                if len(win_nums) == bet[b]['bet']:
+                    win_dict[b] = {'city': bet[b]['city'], 'bet': bet[b]['bet'], 'nums': win_nums}
+
+            for n in bet[b]['nums']:
+                if n in extraction[bet[b]['city']]:
+                    win_nums.append(n)
+            
+            if len(win_nums) == bet[b]['bet']:
+                    win_dict[b] = {'city': bet[b]['city'], 'bet': bet[b]['bet'], 'nums': win_nums}
+
+        if bool(win_dict):
+            return True, win_dict
+        return False, win_dict
 
 
     def quit_program(self, istruction):
@@ -146,12 +169,12 @@ class Lotto:
         return extraction  # type list()
     
 
-    def loading_bar(self):
+    def loading_bar(self, buffer=0.08):
         for i in range(21):
             sys.stdout.write('\r')
             sys.stdout.write("[%-20s] %d%%" % ('='*i, 5*i))
             sys.stdout.flush()
-            time.sleep(0.08)
+            time.sleep(buffer)
         print()
 
 
