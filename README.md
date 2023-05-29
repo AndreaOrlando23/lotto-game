@@ -1,5 +1,5 @@
 # Lotto Game
-#### TomorrowDevs - [Learning Path 1](https://github.com/AndreaOrlando23/programming-basics/tree/main/projects/m6/002-lotto-fake-extraction)
+#### TomorrowDevs - [Learning Path 2](https://github.com/AndreaOrlando23/programming-basics/tree/main/projects/m6/002-lotto-fake-extraction)
 
 ___
 ## Requirements
