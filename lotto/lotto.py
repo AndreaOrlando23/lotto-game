@@ -70,29 +70,36 @@ class Lotto:
 
 
         winner, win_tickets = self.is_win_bet(tickets, lotto_extraction)
+        print(winner, win_tickets)
 
     def is_win_bet(self, bet, extraction):
         win_dict = {}
         win_nums = []
-        excluded_wheel = ['Tutte']
+        excluded_wheel = [12]  # 12 --> Tutte
         
         for b in bet:
+            
             if bet[b]['city'] == 'Tutte':
-                extraction = {k: extraction[k] for k in set(list(extraction.keys())) - set(excluded_wheel)}  # remove 'Tutte' wheel from extraction dict()
-                for n in bet[b]['nums']:
-                    for c in extraction['city']:
-                        if n in extraction[c]:
-                            win_nums.append(n)
-                if len(win_nums) == bet[b]['bet']:
-                    win_dict[b] = {'city': bet[b]['city'], 'bet': bet[b]['bet'], 'nums': win_nums}
+                cities = City.cities
+                cities = {w: cities[w] for w in set(list(cities.keys())) - set(excluded_wheel)}
 
+                for c in cities:
+                    for n in bet[b]['nums']:
+                        if n in extraction[cities[c]]:
+                            win_nums.append(n)
+
+        
             for n in bet[b]['nums']:
                 if n in extraction[bet[b]['city']]:
-                    win_nums.append(n)
-            
-            if len(win_nums) == bet[b]['bet']:
-                    win_dict[b] = {'city': bet[b]['city'], 'bet': bet[b]['bet'], 'nums': win_nums}
+                    win_nums.append(n)   
 
+
+                if len(win_nums) == bet[b]['bet']:
+                    win_dict[b] = {'city': bet[b]['city'], 'bet': bet[b]['bet'], 'nums': win_nums}    
+            win_nums = []  # empty the list again for the next ticket (b)
+
+        print(win_dict)
+                            
         if bool(win_dict):
             return True, win_dict
         return False, win_dict
