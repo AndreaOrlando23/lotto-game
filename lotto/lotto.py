@@ -73,6 +73,7 @@ class Lotto:
         print(winner, win_tickets)
 
     def is_win_bet(self, bet, extraction):
+        # TODO manage the bet parameters. I need to pass int value
         win_dict = {}
         win_nums = []
         excluded_wheel = [12]  # 12 --> Tutte
