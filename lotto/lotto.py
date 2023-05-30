@@ -19,6 +19,7 @@ class Lotto:
     def __init__(self, num_tickets):
         self.num_tickets = num_tickets
         self.tickets = []
+        self.winning_tickets = []
     
 
     def tickets_generator(self):
@@ -44,8 +45,8 @@ class Lotto:
                 nums = self.get_nums(betting+1, bet_type, bet_id)
             
             extraction_for_ticket = self.numbers_generator(nums)
-            ticket = Ticket(betting+1, self.num_tickets, city, bet_type, extraction_for_ticket)
-            tickets.update(ticket.get_tickets(betting+1, city, bet_type, extraction_for_ticket))
+            ticket = Ticket(betting+1, self.num_tickets, city, bet_id, bet_type, extraction_for_ticket)
+            tickets.update(ticket.get_tickets(betting+1, city, bet_id, bet_type, extraction_for_ticket))
             self.tickets.append(ticket)
 
 
@@ -64,16 +65,31 @@ class Lotto:
         lotto_extraction = extraction.get_extractions(cities)  # Return dict() with all cities --> {city: [nums]} --> extraction
         extraction.output()
 
+        ''' test
         print(lotto_extraction)
         print()
         print(tickets)  # tickets return dict() --> {id_ticket: {city: city_name, bet: type_bet, nums: [nums_of_bet]}} --> bet
+        '''
+
+        winner, win_bets = self.is_win_bet(tickets, lotto_extraction)
+        
+        if winner:
+            Ticket.print_decorator(f'### YOU WIN!!! ###')
+            for k in win_bets:
+                win_tickets = Ticket(k, self.num_tickets, win_bets[k]['city'], win_bets[k]['bet_id'], win_bets[k]['bet_type'], extraction_for_ticket)
+                self.winning_tickets.append(win_tickets)
+                
+            Ticket.print_decorator(f'### HERE YOUR WINNING TICKETS ###')
+            for ticket in self.winning_tickets:
+                print(ticket.print_ticket())
 
 
-        winner, win_tickets = self.is_win_bet(tickets, lotto_extraction)
-        print(winner, win_tickets)
+        else:
+            Ticket.print_decorator(f'### YOU LOSE :( TRY AGAIN! ###')
+
+
 
     def is_win_bet(self, bet, extraction):
-        # TODO manage the bet parameters. I need to pass int value
         win_dict = {}
         win_nums = []
         excluded_wheel = [12]  # 12 --> Tutte
@@ -95,11 +111,9 @@ class Lotto:
                     win_nums.append(n)   
 
 
-                if len(win_nums) == bet[b]['bet']:
-                    win_dict[b] = {'city': bet[b]['city'], 'bet': bet[b]['bet'], 'nums': win_nums}    
+                if len(win_nums) == bet[b]['bet_id']:
+                    win_dict[b] = {'city': bet[b]['city'], 'bet_id': bet[b]['bet_id'], 'bet_type':bet[b]['bet_type'], 'nums': win_nums}    
             win_nums = []  # empty the list again for the next ticket (b)
-
-        print(win_dict)
                             
         if bool(win_dict):
             return True, win_dict

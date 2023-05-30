@@ -18,11 +18,12 @@ class Ticket:
     +================================================+
     """
 
-    def __init__(self, id_ticket, num_tickets, city, bet, num_extracted=[]):
+    def __init__(self, id_ticket, num_tickets, city, bet_id, bet_type, num_extracted=[]):
         self.id_ticket = id_ticket
         self.num_tickets = num_tickets
         self.city = city
-        self.bet = bet
+        self.bet_id = bet_id
+        self.bet_type = bet_type
         self.num_extracted = num_extracted
     
     @staticmethod
@@ -32,9 +33,10 @@ class Ticket:
        print('='*50)
 
 
-    def get_tickets(self, id, city, bet, nums):
+    def get_tickets(self, id, city, bet_id, bet_type, nums):
         tickets = {id: {'city': city, 
-                        'bet': bet, 
+                        'bet_id': bet_id, 
+                        'bet_type': bet_type,
                         'nums': nums}
                     }
         return tickets
@@ -45,19 +47,18 @@ class Ticket:
         table_midline = '|'+'-'*48+'|'
         header = '|{:^48}|'.format('TICKET ' + str(self.id_ticket))
         city = '|{:^48}|'.format('City: ' + self.city)
-        bet = '|{:^48}|'.format('Bet: ' + self.bet)
+        bet = '|{:^48}|'.format('Bet: ' + self.bet_type)
         numbers = '|{:^48}|'.format(' '.join([str(elem) for elem in self.num_extracted]))
         
 
         return f"""
-        {table_line}
-        {header}
-        {table_midline}
-        {city}
-        {bet}
-        {numbers}
-        {table_line}
-        """
+{table_line}
+{header}
+{table_midline}
+{city}
+{bet}
+{numbers}
+{table_line}"""
 
 
 # Test
