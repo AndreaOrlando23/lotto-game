@@ -6,9 +6,10 @@ ___
 - This program simulate the Italian [Lotto Game](https://it.wikipedia.org/wiki/Lotto)
 - The project is implemented using OOP so that it can be extended in the next learning path
 - The software parse the user input to generate tickets (min: 1, max: 5) and start the gane (0: exit)
-- For each bill the software ask the type of bill (ambata, ambo, terno, quaterna, cinquina) and the amount of numbers to generate (max 10 per bill) and the "city" (aka "ruota") of the bill: Bari, Cagliari, Firenze, Genova, Milano, Napoli, Palermo, Roma, Torino, Venezia and Tutte
+- For each bill the software ask the type of bill (ambata, ambo, terno, quaterna, cinquina) and the amount of numbers to generate (max 10 per bill) and the "city" (aka "wheel") of the bill: Bari, Cagliari, Firenze, Genova, Milano, Napoli, Palermo, Roma, Torino, Venezia and Tutte
 - Numbers will be randomly generated in the range 1-90 (inclusive)
 - Generate the ticket with nice ascii art table [decoration](https://ozh.github.io/ascii-tables/)
+- Generate lotto extraction based on cities (aka "wheel")
 
 ___
 ## Classes & Methods of lotto package
@@ -102,3 +103,5 @@ Expected Output:
 +------------------------------------------------+
 
 ```
+
+## `Play your game and good luck! :-)`
