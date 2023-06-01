@@ -14,7 +14,8 @@ ___
 ## Classes & Methods of lotto package
 
 `Lotto`
-- `tickets_generator()` - loop for each bill and return information tickets
+- `extractions_manager()` - loop for each bill and return tickets and lotto information (ex `tickets_generator()`)
+- `is_win_bet()` - check if the bet win on lotto extraction
 - `quit_program(istruction)` - quit the program with specific istruction
 - `get_city_name(n_ticket)` - get city name for each bill
 - `get_bet_type(n_ticket)` - get bet type for each bill
@@ -24,14 +25,28 @@ ___
 - `loading_bar()` - build a fancy loading bar
 
 `Bet`
-- `check_bet(bet)` - check if the bet passed is in `Bet.bet_types{}`
-- `get_bet(bet)` - return value pick by key passed
+- `check_bet(bet int)` - check if the bet passed is in `Bet.bet_types{}`
+- `get_bet(bet int)` - return value pick by key passed
 - `print_bet()` - @staticmethod that print out key and values from `Bet.bet_types{}`
 
 `City`
-- `check_city_number(number)` - check if the bet passed is in `Bet.bet_types{}`
-- `get_city(city)` - return value picked by key passed
+- `check_city(id int)` - check if the bet passed is in `Bet.bet_types{}`
+- `get_city(city int)` - return value picked by key passed
 - `print_cities()` - @staticmethod that print out key and values from `City.cities{}`
+
+`Ticket`
+- `get_tickets(id int, city string, bet_id int, bet_type string, nums list)` - generate dict with information passed
+- `print_ticket()` - return and print all tickets in ascii style
+- `print_decorator()` - @staticmethod that print out an ascii decorator
+- `you_win()` - @staticmethod that print out an ascii decorator
+
+`Extraction`
+- `get_extractions(cities dict)` - return dict with city as key and list of nums as value
+- `output()` - print out lotto extraction in ascii style
+
+`Extraction`
+
+Is only a set of verbose information on lotto game (see next section)
 
 ___
 ## How to Play
@@ -47,10 +62,10 @@ If you need to see more information about the rules of Lotto Game program, then 
 
 ___
 ## Output
-The program is designed to render an ascii style representation of ***n*** lotto tickets, as the following output sample:
+The program is designed to render an ascii style representation of ***n*** lotto tickets and lotto extraction, as the following output sample:
 
 ```Python
-"""
+
 Expected Output:
 +================================================+
 |                  TICKET <n>                    |
@@ -59,5 +74,31 @@ Expected Output:
 |                 Bet: <bet_type>                |
 |               <numbers_extracted>              |
 +================================================+
-"""
+
++================================================+
+|    CITY    |           N U M B E R S           |
++================================================+
+|    Bari    |         84  39  9  71  65         |
++------------------------------------------------+
+|  Cagliari  |         4  34  9  87  28          |
++------------------------------------------------+
+|  Firenze   |        83  47  46  72  25         |
++------------------------------------------------+
+|   Genova   |        55  40  66  17  72         |
++------------------------------------------------+
+|   Milano   |        89  54  21  18  71         |
++------------------------------------------------+
+|   Napoli   |        26  32  50  61  44         |
++------------------------------------------------+
+|  Palermo   |        27  63  77  85  14         |
++------------------------------------------------+
+|    Roma    |          1  7  6  19  21          |
++------------------------------------------------+
+|   Torino   |         8  57  2  14  36          |
++------------------------------------------------+
+|  Venezia   |         32  30  52  79  6         |
++------------------------------------------------+
+|   Tutte    |         19  72  2  90  66         |
++------------------------------------------------+
+
 ```

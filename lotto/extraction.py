@@ -14,7 +14,7 @@ class Extraction:
             self.extractions.update({city: random.sample(range(1, 91), self.num_extracted)})
         return self.extractions
     
-
+    
     def output(self):
         table_line = '+'+'='*48+'+'
         print(table_line)

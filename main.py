@@ -23,7 +23,7 @@ def main():
             Lotto(data['n']).quit_program(point_check)
 
         lotto = Lotto(data['n'])
-        generate_ticket = lotto.extractions_manager()
+        generate_ticket = lotto.extractions_manager()  # the name was tickets_generator() in the previous branch (learning_path_1)
 
 
 if __name__ == '__main__':

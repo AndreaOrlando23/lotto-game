@@ -28,6 +28,11 @@ class Lotto:
     
 
     def extractions_manager(self):
+        """
+        This is the main method that manage the extraction (tickets and lotto wheels)
+        the name was tickets_generator() in the previous branch
+        The name is changed in order to abstract this method and reuse for printing tickets and lotto extraction
+        """
         cities = City.cities
         tickets = {}
 
@@ -54,7 +59,7 @@ class Lotto:
             tickets.update(ticket.get_tickets(betting+1, city, bet_id, bet_type, extraction_for_ticket))
             self.tickets.append(ticket)
 
-
+        # PRINT TICKETS
         print("\nProcessing Tickets...\n")        
         self.loading_bar()
         Ticket.print_decorator(f'### HERE YOUR {self.num_tickets} TICKETS ###')
@@ -66,14 +71,16 @@ class Lotto:
         print("\nProcessing Extraction...\n")
         self.loading_bar(0.15)
 
+        # PRINT LOTTO EXTRACTION
         extraction = Extraction()
         lotto_extraction = extraction.get_extractions(cities)  # Return dict() with all cities --> {city: [nums]} --> extraction
         extraction.output()
 
+        # PARSE TICKET & EXTRACTION AND CHECK IF WIN
         winner, win_bets = self.is_win_bet(tickets, lotto_extraction)
         
         if winner:
-            Ticket.you_win()
+            Ticket.you_win()  # fancy decorator for winner
             for ticket_id in win_bets:
                 win_tickets = Ticket(ticket_id, self.num_tickets, win_bets[ticket_id]['city'], win_bets[ticket_id]['bet_id'], win_bets[ticket_id]['bet_type'], tickets[ticket_id]['nums'])
                 self.winning_tickets.append(win_tickets)
@@ -82,24 +89,47 @@ class Lotto:
             n = 0
             for ticket in self.winning_tickets:
                 print(ticket.print_ticket())
+                # For each ticket, print winning numbers using n as a counter of win_bets keys
                 print(f"Winning Numbers: {win_bets[list(win_bets.keys())[n]]['nums']}")
                 n += 1
-
-
         else:
             Ticket.print_decorator(f'### YOU LOSE :( TRY AGAIN! ###')
 
 
-
     def is_win_bet(self, bet, extraction):
+        """
+        bet and extraction are 2 dict with those structure:
+
+        bet --> {ticket_id: {'city': 'name_of_city', 'bet_id': id, 'bet_type': 'desc_of_bet', 'nums': [random_bet_nums]}}
+        eg. of bet dict:
+        {
+            1: {'city': 'Bari', 'bet_id': 1, 'bet_type': 'Ambata', 'nums': [80]}
+        }
+        
+        extraction --> {city1: [5randomnums], city2: [5randomnums], city3: [5randomnums] ecc..} (for 12 cities aka wheel) 
+        eg. of extraction dict:
+        {
+            'Bari': [84, 39, 9, 71, 65], 
+            'Cagliari': [4, 34, 9, 87, 28], 
+            'Firenze': [83, 47, 46, 72, 25],
+            'Genova': [55, 40, 66, 17, 72],
+            'Milano': [89, 54, 21, 18, 71],
+            'Napoli': [26, 32, 50, 61, 44],
+            'Palermo': [27, 63, 77, 85, 14],
+            'Roma': [1, 7, 6, 19, 21],
+            'Torino': [8, 57, 2, 14, 36],
+            'Venezia': [32, 30, 52, 79, 6],
+            'Tutte': [19, 72, 2, 90, 66]
+        }
+        """
         win_dict = {}
         win_nums = []
         excluded_wheel = [12]  # 12 --> Tutte
         
         for b in bet:
-            
             if bet[b]['city'] == 'Tutte':
                 cities = City.cities
+                # Update cities dict removing only the Tutte wheel
                 cities = {w: cities[w] for w in set(list(cities.keys())) - set(excluded_wheel)}
 
                 for c in cities:
@@ -107,17 +137,15 @@ class Lotto:
                         if n in extraction[cities[c]]:
                             win_nums.append(n)
 
-        
             for n in bet[b]['nums']:
                 if n in extraction[bet[b]['city']]:
                     win_nums.append(n)   
-
 
                 if len(win_nums) == bet[b]['bet_id']:
                     win_dict[b] = {'city': bet[b]['city'], 'bet_id': bet[b]['bet_id'], 'bet_type':bet[b]['bet_type'], 'nums': win_nums}    
             win_nums = []  # empty the list again for the next ticket (b)
                             
-        if bool(win_dict):
+        if bool(win_dict):  # check if win_dict is empty or not; FALSE --> empty dict
             return True, win_dict
         return False, win_dict
 
@@ -200,6 +228,8 @@ class Lotto:
             sys.stdout.flush()
             time.sleep(buffer)
         print()
+
+
 
 
 # Test
