@@ -26,12 +26,6 @@ class Ticket:
         self.bet_type = bet_type
         self.num_extracted = num_extracted
     
-    @staticmethod
-    def print_decorator(text):
-       print('='*50)
-       print('{:^50}'.format(text))
-       print('='*50)
-
 
     def get_tickets(self, id, city, bet_id, bet_type, nums):
         tickets = {id: {'city': city, 
@@ -59,6 +53,28 @@ class Ticket:
 {bet}
 {numbers}
 {table_line}"""
+
+
+    @staticmethod
+    def print_decorator(text):
+        print('='*50)
+        print('{:^50}'.format(text))
+        print('='*50)
+
+
+    @staticmethod
+    def you_win():
+        print(
+"""
+__   __  ___   _   _  __        __ ___  _   _   _  _  _ 
+\ \ / / / _ \ | | | | \ \      / /|_ _|| | / | | || || |
+ \ V / | | | || | | |  \ \ /\ / /  | | | |/  | | || || |
+  | |  | |_| || |_| |   \ V  V /   | | |  /| | |_||_||_|
+  |_|   \___/  \___/     \_/\_/   |___||_/ |_| (_)(_)(_)
+"""  
+)    
+
+
 
 
 # Test

@@ -23,7 +23,7 @@ def main():
             Lotto(data['n']).quit_program(point_check)
 
         lotto = Lotto(data['n'])
-        generate_ticket = lotto.tickets_generator()
+        generate_ticket = lotto.extractions_manager()
 
 
 if __name__ == '__main__':

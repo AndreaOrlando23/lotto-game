@@ -11,8 +11,13 @@ class Lotto:
     """
     Lotto class represents the business logic of the program.
     The methods process all the inputs from the user and manage controls flow.
-    If the input pass all the controls, the program will print out the tickets 
-    with all the information needed.
+
+    If the input pass all the controls, the program will:
+    - print out the tickets
+    - print out the global lotto extraction
+    - check if there are winning ticket
+    - output the result
+    - in case of win, print out winning tickets
     """
     
 
@@ -22,7 +27,7 @@ class Lotto:
         self.winning_tickets = []
     
 
-    def tickets_generator(self):
+    def extractions_manager(self):
         cities = City.cities
         tickets = {}
 
@@ -65,23 +70,20 @@ class Lotto:
         lotto_extraction = extraction.get_extractions(cities)  # Return dict() with all cities --> {city: [nums]} --> extraction
         extraction.output()
 
-        ''' test
-        print(lotto_extraction)
-        print()
-        print(tickets)  # tickets return dict() --> {id_ticket: {city: city_name, bet: type_bet, nums: [nums_of_bet]}} --> bet
-        '''
-
         winner, win_bets = self.is_win_bet(tickets, lotto_extraction)
         
         if winner:
-            Ticket.print_decorator(f'### YOU WIN!!! ###')
-            for k in win_bets:
-                win_tickets = Ticket(k, self.num_tickets, win_bets[k]['city'], win_bets[k]['bet_id'], win_bets[k]['bet_type'], extraction_for_ticket)
+            Ticket.you_win()
+            for ticket_id in win_bets:
+                win_tickets = Ticket(ticket_id, self.num_tickets, win_bets[ticket_id]['city'], win_bets[ticket_id]['bet_id'], win_bets[ticket_id]['bet_type'], tickets[ticket_id]['nums'])
                 self.winning_tickets.append(win_tickets)
                 
-            Ticket.print_decorator(f'### HERE YOUR WINNING TICKETS ###')
+            Ticket.print_decorator(f'### YOU HAVE {len(self.winning_tickets)} WINNING TICKETS! ###')
+            n = 0
             for ticket in self.winning_tickets:
                 print(ticket.print_ticket())
+                print(f"Winning Numbers: {win_bets[list(win_bets.keys())[n]]['nums']}")
+                n += 1
 
 
         else:

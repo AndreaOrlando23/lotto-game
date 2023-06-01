@@ -14,5 +14,4 @@ cities = {
     }
 
 
-for c in cities:
-    print(c)
+print(len(cities))
